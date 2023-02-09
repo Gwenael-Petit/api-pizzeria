@@ -33,19 +33,25 @@ public class IngredientRestAPI extends HttpServlet {
 		}
 		
 		String[] infos = req.getPathInfo().split("/");
-		if(infos.length != 2) {
+		if(infos.length < 2 || infos.length >3) {
 			res.sendError(HttpServletResponse.SC_NOT_FOUND);
 			return;
 		}
 		
+		
 		try {
 			Integer id = Integer.parseInt(infos[1]);
-			Ingredient ingredient = ingredientDAO.find(id);
+			Ingredient ingredient = ingredientDAO.findById(id);
 			if(ingredient == null) {
 				res.sendError(HttpServletResponse.SC_NOT_FOUND);
 				return;
 			}
-			out.println(mapper.writeValueAsString(ingredient));
+			if(infos.length ==3 && infos[2].equalsIgnoreCase("name")) {
+				out.println("{\"name\":\"" + ingredient.getName()+ "\"}");
+			}else {
+				out.println(mapper.writeValueAsString(ingredient));
+			}
+			//out.println(mapper.writeValueAsString(ingredient));
 		} catch(NumberFormatException e) {
 			res.sendError(HttpServletResponse.SC_NOT_FOUND);
 			return;
