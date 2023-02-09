@@ -13,7 +13,7 @@ public class IngredientDAO {
 	
 	private DS ds = new DS();
 	
-	public Ingredient find(int id) {
+	public Ingredient findById(int id) {
 		Ingredient res = null;
 		try(Connection con = ds.getConnection()) {
 			PreparedStatement ps = con.prepareStatement("select * from ingredients where id = ?");
