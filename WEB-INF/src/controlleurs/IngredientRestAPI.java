@@ -1,0 +1,83 @@
+package controlleurs;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import dao.IngredientDAO;
+import dto.Ingredient;
+
+@WebServlet("/ingredients/*")
+public class IngredientRestAPI extends HttpServlet {
+	
+	private IngredientDAO ingredientDAO = new IngredientDAO();
+	
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		res.setContentType("application/json;charset=UTF-8");
+		PrintWriter out = res.getWriter();
+		ObjectMapper mapper = new ObjectMapper();
+		
+		String pathInfo = req.getPathInfo();
+		if(pathInfo == null || pathInfo.equals("/")) {
+			out.println(mapper.writeValueAsString(ingredientDAO.findAll()));
+			return;
+		}
+		
+		String[] infos = req.getPathInfo().split("/");
+		if(infos.length != 2) {
+			res.sendError(HttpServletResponse.SC_NOT_FOUND);
+			return;
+		}
+		
+		try {
+			Integer id = Integer.parseInt(infos[1]);
+			Ingredient ingredient = ingredientDAO.find(id);
+			if(ingredient == null) {
+				res.sendError(HttpServletResponse.SC_NOT_FOUND);
+				return;
+			}
+			out.println(mapper.writeValueAsString(ingredient));
+		} catch(NumberFormatException e) {
+			res.sendError(HttpServletResponse.SC_NOT_FOUND);
+			return;
+		}
+		
+		out.close();
+	}
+	
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		StringBuilder sb = new StringBuilder();
+		try(BufferedReader reader = req.getReader()) {
+			String line;
+			while((line = reader.readLine()) != null) {
+				sb.append(line);
+			}
+		} catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
+		
+		ObjectMapper mapper = new ObjectMapper();
+		Ingredient ingredient = mapper.readValue(sb.toString(), Ingredient.class);
+		
+		if(ingredientDAO.exist(ingredient)) {
+			res.sendError(HttpServletResponse.SC_CONFLICT);
+			return;
+		}
+		
+		ingredientDAO.save(ingredient);
+		res.setContentType("application/json;charset=UTF-8");
+		PrintWriter out = res.getWriter();
+		out.println(sb.toString());
+	}
+
+}
