@@ -51,7 +51,6 @@ public class IngredientRestAPI extends HttpServlet {
 			}else {
 				out.println(mapper.writeValueAsString(ingredient));
 			}
-			//out.println(mapper.writeValueAsString(ingredient));
 		} catch(NumberFormatException e) {
 			res.sendError(HttpServletResponse.SC_NOT_FOUND);
 			return;
@@ -84,6 +83,41 @@ public class IngredientRestAPI extends HttpServlet {
 		res.setContentType("application/json;charset=UTF-8");
 		PrintWriter out = res.getWriter();
 		out.println(sb.toString());
+	}
+	
+	@Override
+	protected void doDelete(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		res.setContentType("application/json;charset=UTF-8");
+		PrintWriter out = res.getWriter();
+		ObjectMapper mapper = new ObjectMapper();
+		
+		String pathInfo = req.getPathInfo();
+		if(pathInfo == null || pathInfo.equals("/")) {
+			res.sendError(HttpServletResponse.SC_NOT_FOUND);
+			return;
+		}
+		
+		String[] infos = req.getPathInfo().split("/");
+		if(infos.length != 2) {
+			res.sendError(HttpServletResponse.SC_NOT_FOUND);
+			return;
+		}
+		
+		try {
+			Integer id = Integer.parseInt(infos[1]);
+			Ingredient ingredient = ingredientDAO.findById(id);
+			if(ingredient == null) {
+				res.sendError(HttpServletResponse.SC_NOT_FOUND);
+				return;
+			}
+			out.println(mapper.writeValueAsString(ingredient));
+			ingredientDAO.delete(ingredient);
+		} catch(NumberFormatException e) {
+			res.sendError(HttpServletResponse.SC_NOT_FOUND);
+			return;
+		}
+		
+		out.close();
 	}
 
 }
