@@ -1,20 +1,20 @@
 package dto;
 
-import java.util.List;
-
 public class Pizza {
 	
 	private int id;
 	private String name;
 	private double price;
-	private List<Ingredient> ingredients;
+	private String dough;
 	
-	public Pizza(int id, String name, double price, List<Ingredient> ingredients) {
+	public Pizza() {}
+	
+	public Pizza(int id, String name, double price, String dough) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.price = price;
-		this.ingredients = ingredients;
+		this.dough = dough;
 	}
 
 	public int getId() {
@@ -40,13 +40,13 @@ public class Pizza {
 	public void setPrice(double price) {
 		this.price = price;
 	}
-
-	public List<Ingredient> getIngredients() {
-		return ingredients;
+	
+	public String getDough() {
+		return dough;
 	}
-
-	public void setIngredients(List<Ingredient> ingredients) {
-		this.ingredients = ingredients;
+	
+	public void setDough(String dough) {
+		this.dough = dough;
 	}
 	
 }
