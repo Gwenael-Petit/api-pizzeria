@@ -23,7 +23,7 @@ public class PizzaDAO {
 			ResultSet rs = ps.executeQuery();
 			if(rs.next()) {
 				List<Ingredient> ingredients = pizzaIngredientDAO.findByPizzaId(rs.getInt("id"));
-				pizza = new Pizza(rs.getInt("id"), rs.getString("name"), rs.getDouble("price"), rs.getString("dough"), ingredients);
+				pizza = new Pizza(rs.getInt("id"), rs.getString("name"), rs.getDouble("basicPrice"), rs.getString("dough"), ingredients);
 			}
 		} catch(Exception e) {
 			System.out.println(e.getMessage());
@@ -38,7 +38,7 @@ public class PizzaDAO {
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
 				List<Ingredient> ingredients = pizzaIngredientDAO.findByPizzaId(rs.getInt("id"));
-				pizzas.add(new Pizza(rs.getInt("id"), rs.getString("name"), rs.getDouble("price"), rs.getString("dough"), ingredients));
+				pizzas.add(new Pizza(rs.getInt("id"), rs.getString("name"), rs.getDouble("basicPrice"), rs.getString("dough"), ingredients));
 			}
 		} catch(Exception e) {
 			System.out.println(e.getMessage());
@@ -73,7 +73,7 @@ public class PizzaDAO {
 	
 	public void update(Pizza pizza) {
 		try(Connection con = ds.getConnection()) {
-			PreparedStatement ps = con.prepareStatement("update pizzas set name=?,price=?,dough=? where id=?");
+			PreparedStatement ps = con.prepareStatement("update pizzas set name=?,basicPrice=?,dough=? where id=?");
 			ps.setString(1, pizza.getName());
 			ps.setDouble(2, pizza.getBasicPrice());
 			ps.setString(3, pizza.getDough());
