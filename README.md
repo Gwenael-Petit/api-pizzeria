@@ -25,8 +25,9 @@ Membres :
 | POST | /pizzas | Pizza JSON | - Ajout d’une nouvelle pizza avec ses ingrédients <br> - 409 si la pizza existe déjà |
 | DELETE | /pizzas/{id} | | - Suppression d'une pizza <br> - 404 si la pizza n'existe pas |
 | PATCH | /pizzas/{id} | Pizza JSON (valeurs à changer) | - Modification d’un attribut d’une pizza <br> - 404 si la pizza n'existe pas |
-| POST | /pizza/{id}/addIngredient | Ingredient JSON | - Ajout d’un ingrédient à une pizza <br> - 404 si la pizza n'existe pas <br> - 409 si l'ingrédient est déjà sur la pizza |
-| POST | /pizza/{id}/removeIngredient | Ingredient JSON | - Suppression d’un ingrédient à une pizza <br> - 404 si la pizza n'existe pas <br> - 404 si l'ingrédient n'est pas sur la pizza |
+| POST | /pizza/{id} | Ingredient JSON | - Ajout d’un ingrédient à une pizza <br> - 404 si la pizza n'existe pas <br> - 409 si l'ingrédient est déjà sur la pizza |
+| DELETE | /pizzas/{id}/{idIngredient} | | - Suppression d'un ingrédient d'une pizza <br> - 404 si l'ingrédient n'est pas sur la pizza |
+| GET | /pizzas/{id}/prixfinal | | - Obtenir le prix final de la pizza |
 
 ### Commandes
 
