@@ -4,11 +4,11 @@ public class Ingredient {
 	
 	private int id;
 	private String name;
-	private int price;
+	private double price;
 	
 	public Ingredient() {}
 	
-	public Ingredient(int id, String name, int price) {
+	public Ingredient(int id, String name, double price) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -31,11 +31,11 @@ public class Ingredient {
 		this.name = name;
 	}
 	
-	public int getPrice() {
+	public double getPrice() {
 		return price;
 	}
 
-	public void setPrice(int price) {
+	public void setPrice(double price) {
 		this.price = price;
 	}
 
