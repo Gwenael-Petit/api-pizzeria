@@ -47,8 +47,8 @@ public class PizzaRestAPI extends MyServlet {
 				res.sendError(HttpServletResponse.SC_NOT_FOUND);
 				return;
 			}
-			if(infos.length ==3 && infos[2].equalsIgnoreCase("name")) {
-				out.println(mapper.writeValueAsString(pizzaDAO.calculateFinalPrice(pizza)));
+			if(infos.length ==3 && infos[2].equalsIgnoreCase("prixfinal")) {
+				out.println("prix: " + mapper.writeValueAsString(pizzaDAO.calculateFinalPrice(pizza)));
 			}else {
 				out.println(mapper.writeValueAsString(pizza));
 			}
