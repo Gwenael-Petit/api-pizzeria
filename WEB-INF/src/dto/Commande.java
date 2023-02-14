@@ -5,16 +5,27 @@ import java.util.List;
 
 public class Commande {
 	
+	private int id;
 	private int userId;
-	private Date date;
+	private Date dateCommande;
 	private List<Pizza> pizzas;
 	
 	public Commande() {}
-	
-	public Commande(int userId, Date date, List<Pizza> pizzas) {
+
+	public Commande(int id, int userId, Date dateCommande, List<Pizza> pizzas) {
+		super();
+		this.id = id;
 		this.userId = userId;
-		this.date = date;
+		this.dateCommande = dateCommande;
 		this.pizzas = pizzas;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public int getUserId() {
@@ -25,12 +36,12 @@ public class Commande {
 		this.userId = userId;
 	}
 
-	public Date getDate() {
-		return date;
+	public Date getDateCommande() {
+		return dateCommande;
 	}
 
-	public void setDate(Date date) {
-		this.date = date;
+	public void setDateCommande(Date dateCommande) {
+		this.dateCommande = dateCommande;
 	}
 
 	public List<Pizza> getPizzas() {
@@ -40,6 +51,5 @@ public class Commande {
 	public void setPizzas(List<Pizza> pizzas) {
 		this.pizzas = pizzas;
 	}
-	
 	
 }
