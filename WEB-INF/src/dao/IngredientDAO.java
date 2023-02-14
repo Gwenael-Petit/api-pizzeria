@@ -20,7 +20,7 @@ public class IngredientDAO {
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
 			if(rs.next()) {
-				res = new Ingredient(rs.getInt("id"), rs.getString("name"));
+				res = new Ingredient(rs.getInt("id"), rs.getString("name"), rs.getInt("price"));
 			}
 		} catch(Exception e) {
 			System.out.println(e.getMessage());
@@ -34,7 +34,7 @@ public class IngredientDAO {
 			PreparedStatement ps = con.prepareStatement("select * from ingredients");
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
-				res.add(new Ingredient(rs.getInt("id"), rs.getString("name")));
+				res.add(new Ingredient(rs.getInt("id"), rs.getString("name"), rs.getInt("price")));
 			}
 		} catch(Exception e) {
 			System.out.println(e.getMessage());
