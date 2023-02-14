@@ -1,20 +1,25 @@
 package dto;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Pizza {
 	
 	private int id;
 	private String name;
-	private double price;
+	private double basicPrice;
 	private String dough;
+	private List<Ingredient> ingredients = new ArrayList<Ingredient>();
 	
 	public Pizza() {}
 	
-	public Pizza(int id, String name, double price, String dough) {
+	public Pizza(int id, String name, double basicPrice, String dough, List<Ingredient> ingredients) {
 		super();
 		this.id = id;
 		this.name = name;
-		this.price = price;
+		this.basicPrice = basicPrice;
 		this.dough = dough;
+		this.ingredients = ingredients;
 	}
 
 	public int getId() {
@@ -33,12 +38,12 @@ public class Pizza {
 		this.name = name;
 	}
 
-	public double getPrice() {
-		return price;
+	public double getBasicPrice() {
+		return basicPrice;
 	}
 
-	public void setPrice(double price) {
-		this.price = price;
+	public void setBasicPrice(double basicPrice) {
+		this.basicPrice = basicPrice;
 	}
 	
 	public String getDough() {
@@ -47,6 +52,14 @@ public class Pizza {
 	
 	public void setDough(String dough) {
 		this.dough = dough;
+	}
+	
+	public List<Ingredient> getIngredients() {
+		return ingredients;
+	}
+	
+	public void setIngredients(List<Ingredient> ingredients) {
+		this.ingredients = ingredients;
 	}
 	
 }
