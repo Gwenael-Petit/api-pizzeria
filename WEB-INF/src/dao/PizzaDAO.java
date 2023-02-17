@@ -85,12 +85,4 @@ public class PizzaDAO {
 			System.out.println(e.getMessage());
 		}
 	}
-	
-	public double calculateFinalPrice(Pizza pizza) {
-		double finalPrice = pizza.getBasicPrice();
-		for(Ingredient ingredient : pizza.getIngredients()) {
-			finalPrice += ingredient.getPrice();
-		}
-		return finalPrice;
-	}
 }
