@@ -62,10 +62,10 @@ public class PizzaDAO {
 	
 	public void delete(Pizza pizza) {
 		try(Connection con = ds.getConnection()) {
+			pizzaIngredientDAO.delete(pizza);
 			PreparedStatement ps = con.prepareStatement("delete from pizzas where id=?");
 			ps.setInt(1, pizza.getId());
 			ps.executeUpdate();
-			pizzaIngredientDAO.delete(pizza);
 		} catch(Exception e) {
 			System.out.println(e.getMessage());
 		}
@@ -73,11 +73,12 @@ public class PizzaDAO {
 	
 	public void update(Pizza pizza) {
 		try(Connection con = ds.getConnection()) {
-			PreparedStatement ps = con.prepareStatement("update pizzas set name=?,basicPrice=?,dough=? where id=?");
+			PreparedStatement ps = con.prepareStatement("update pizzas set name=?,basicPrice=?,dough=?, id=? where id=?");
 			ps.setString(1, pizza.getName());
 			ps.setDouble(2, pizza.getBasicPrice());
 			ps.setString(3, pizza.getDough());
 			ps.setInt(4, pizza.getId());
+			ps.setInt(5, pizza.getId());
 			ps.executeUpdate();
 			pizzaIngredientDAO.update(pizza);
 		} catch(Exception e) {

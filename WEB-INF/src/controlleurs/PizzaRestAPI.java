@@ -72,6 +72,10 @@ public class PizzaRestAPI extends MyServlet {
 		String pathInfo = req.getPathInfo();
 		if(pathInfo == null || pathInfo.equals("/")) {
 			Pizza pizza = mapper.readValue(parameter, Pizza.class);
+			if(pizzaDAO.findById(pizza.getId()) != null) {
+				res.sendError(HttpServletResponse.SC_CONFLICT);
+				return;
+			}
 			pizzaDAO.save(pizza);
 			out.println(parameter);
 			return;
@@ -86,8 +90,12 @@ public class PizzaRestAPI extends MyServlet {
 				res.sendError(HttpServletResponse.SC_NOT_FOUND);
 				return;
 			}
+			if(foundPizza.getIngredients().stream().anyMatch(i -> i.getId() == ingredient.getId())) {
+				res.sendError(HttpServletResponse.SC_CONFLICT);
+				return;
+			}
 			pizInDAO.addIngredient(foundPizza, ingredient);
-			out.println(foundPizza);
+			out.println(mapper.writeValueAsString(ingredient));
 		}catch(NumberFormatException e) {
 			res.sendError(HttpServletResponse.SC_NOT_FOUND);
 			return;
@@ -102,7 +110,54 @@ public class PizzaRestAPI extends MyServlet {
 	
 	@Override
 	protected void doDelete(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		res.setContentType("application/json;charset=UTF-8");
+		PrintWriter out = res.getWriter();
+		ObjectMapper mapper = new ObjectMapper();
 		
+		
+		String pathInfo = req.getPathInfo();
+		if(pathInfo == null || pathInfo.equals("/")) {
+			res.sendError(HttpServletResponse.SC_NOT_FOUND);
+			return;
+		}
+		
+		String[] infos = req.getPathInfo().split("/");
+		if(infos.length < 2 && infos.length > 3) {
+			res.sendError(HttpServletResponse.SC_NOT_FOUND);
+			return;
+		}
+		
+		try {
+			Integer id = Integer.parseInt(infos[1]);
+			Pizza pizza = pizzaDAO.findById(id);
+			if(pizza == null) {
+				res.sendError(HttpServletResponse.SC_NOT_FOUND);
+				return;
+			}
+			
+			if(infos.length == 3) {
+				Integer idIngredient = Integer.parseInt(infos[2]);
+				Ingredient ingredient = null;
+				for (Ingredient i : pizza.getIngredients()) {
+					if(i.getId() == idIngredient) {
+						ingredient = i;
+						break;
+					}
+				}
+				if(ingredient == null) {
+					res.sendError(HttpServletResponse.SC_NOT_FOUND);
+					return;
+				}
+				pizInDAO.removeIngredient(pizza, ingredient);
+			}else {
+				pizzaDAO.delete(pizza);
+			}
+		} catch(NumberFormatException e) {
+			res.sendError(HttpServletResponse.SC_NOT_FOUND);
+			return;
+		}
+		
+		out.close();
 	}
 	
 	protected String readParameter(HttpServletRequest req, HttpServletResponse res)throws IOException  {
