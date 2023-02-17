@@ -27,7 +27,7 @@ Membres :
 | PATCH | /pizzas/{id} | Pizza JSON (valeurs à changer) | - Modification d’un attribut d’une pizza <br> - 404 si la pizza n'existe pas |
 | POST | /pizza/{id} | Ingredient JSON | - Ajout d’un ingrédient à une pizza <br> - 404 si la pizza n'existe pas <br> - 409 si l'ingrédient est déjà sur la pizza |
 | DELETE | /pizzas/{id}/{idIngredient} | | - Suppression d'un ingrédient d'une pizza <br> - 404 si l'ingrédient n'est pas sur la pizza |
-| GET | /pizzas/{id}/prixfinal | | - Obtenir le prix final de la pizza |
+| GET | /pizzas/{id}/prixfinal | | - Obtenir le prix final de la pizza <br> - 404 si la pizza n'existe pas |
 
 ### Commandes
 
@@ -36,4 +36,4 @@ Membres :
 | GET  | /commandes | | Liste des commandes en cours |
 | GET  | /commandes/{id} | | - Obtenir le détail d’une commande <br> - 404 si la commande n'existe pas |
 | POST | /commandes | Commande JSON | - Enregistrement d’une nouvelle commande <br> - 409 si la commande existe déjà |
-| GET  | /commandes/{id}/prixfinal | | - Récupérer le prix final d'une commande |
+| GET  | /commandes/{id}/prixfinal | | - Récupérer le prix final d'une commande <br> - 404 si la commande n'existe pas |
