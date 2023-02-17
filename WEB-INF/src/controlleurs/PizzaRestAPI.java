@@ -9,7 +9,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import dao.PizzaDAO;
 import dao.PizzaIngredientDAO;
@@ -104,16 +107,12 @@ public class PizzaRestAPI extends MyServlet {
 	}
 
 	@Override
-	public void doPatch(HttpServletRequest req, HttpServletResponse res) {
-		
-	}
-	
-	@Override
-	protected void doDelete(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+	public void doPatch(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		res.setContentType("application/json;charset=UTF-8");
 		PrintWriter out = res.getWriter();
-		ObjectMapper mapper = new ObjectMapper();
+		String parameter = readParameter(req, res);
 		
+		ObjectMapper mapper = new ObjectMapper();
 		
 		String pathInfo = req.getPathInfo();
 		if(pathInfo == null || pathInfo.equals("/")) {
@@ -122,6 +121,62 @@ public class PizzaRestAPI extends MyServlet {
 		}
 		
 		String[] infos = req.getPathInfo().split("/");
+		if(infos.length < 2 && infos.length > 3) {
+			res.sendError(HttpServletResponse.SC_NOT_FOUND);
+			return;
+		}
+		
+		try {
+			Integer id = Integer.parseInt(infos[1]);
+			Pizza pizza = pizzaDAO.findById(id);
+			if(pizza == null) {
+				res.sendError(HttpServletResponse.SC_NOT_FOUND);
+				return;
+			}
+			 
+			JsonNode jsn = mapper.readTree(parameter);
+			if( jsn.get("id") == null) {
+				out.println("pas d'id");
+			} else {
+				out.println("un id");
+			}
+			/*if(!idS) {
+				out.println(jsn.get("id").asText());
+			} else {
+				out.println("rien");
+			}*/
+			
+			/*Pizza pizzaJson = mapper.readValue(parameter, Pizza.class);
+			
+			
+			out.println(pizzaJson.getId());
+			out.println(pizzaJson.getName());
+			out.println(pizzaJson.getBasicPrice());
+			out.println(pizzaJson.getDough());
+			out.println(pizzaJson.getIngredients());*/
+			
+			
+		} catch(NumberFormatException e) {
+			res.sendError(HttpServletResponse.SC_NOT_FOUND);
+			return;
+		}
+		
+		out.close();
+		
+	}
+	
+	@Override
+	protected void doDelete(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		res.setContentType("application/json;charset=req.getPathInfo()UTF-8");
+		
+		
+		String pathInfo = req.getPathInfo();
+		if(pathInfo == null || pathInfo.equals("/")) {
+			res.sendError(HttpServletResponse.SC_NOT_FOUND);
+			return;
+		}
+		
+		String[] infos = pathInfo.split("/");
 		if(infos.length < 2 && infos.length > 3) {
 			res.sendError(HttpServletResponse.SC_NOT_FOUND);
 			return;
@@ -156,8 +211,6 @@ public class PizzaRestAPI extends MyServlet {
 			res.sendError(HttpServletResponse.SC_NOT_FOUND);
 			return;
 		}
-		
-		out.close();
 	}
 	
 	protected String readParameter(HttpServletRequest req, HttpServletResponse res)throws IOException  {

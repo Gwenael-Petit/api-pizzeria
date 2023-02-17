@@ -18,6 +18,6 @@ public abstract class MyServlet extends HttpServlet {
 		}
 	}
 	
-	public abstract void doPatch(HttpServletRequest req, HttpServletResponse res);
+	public abstract void doPatch(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException;
 
 }
