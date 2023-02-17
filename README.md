@@ -36,3 +36,4 @@ Membres :
 | GET  | /commandes | | Liste des commandes en cours |
 | GET  | /commandes/{id} | | - Obtenir le détail d’une commande <br> - 404 si la commande n'existe pas |
 | POST | /commandes | Commande JSON | - Enregistrement d’une nouvelle commande <br> - 409 si la commande existe déjà |
+| GET  | /commandes/{id}/prixfinal | | - Récupérer le prix final d'une commande |

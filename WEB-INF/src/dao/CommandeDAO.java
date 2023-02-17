@@ -33,11 +33,29 @@ public class CommandeDAO {
 	
 	public List<Commande> findAll() {
 		List<Commande> res = new ArrayList<Commande>();
+		try(Connection con = ds.getConnection()) {
+			PreparedStatement ps = con.prepareStatement("select * from commandes");
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				List<Pizza> pizzas = commandePizzaDAO.findById(rs.getInt("id"));
+				res.add(new Commande(rs.getInt("id"), rs.getInt("userId"), rs.getDate("dateCommande"), pizzas));
+			}
+		} catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
 		return res;
 	}
 	
 	public void save(Commande commande) {
-		
+		try(Connection con = ds.getConnection()) {
+			PreparedStatement ps = con.prepareStatement("insert into commandes values(?,?,?)");
+			ps.setInt(1, commande.getId());
+			ps.setInt(2, commande.getUserId());
+			ps.setDate(3, commande.getDateCommande());
+			commandePizzaDAO.save(commande);
+		} catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
 	}
 
 }

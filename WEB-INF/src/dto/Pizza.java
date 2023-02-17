@@ -62,4 +62,12 @@ public class Pizza {
 		this.ingredients = ingredients;
 	}
 	
+	public double calculateFinalPrice() {
+		double finalPrice = this.basicPrice;
+		for(Ingredient ingredient : this.ingredients) {
+			finalPrice += ingredient.getPrice();
+		}
+		return finalPrice;
+	}
+	
 }

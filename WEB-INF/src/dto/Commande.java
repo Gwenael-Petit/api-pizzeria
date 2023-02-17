@@ -52,4 +52,12 @@ public class Commande {
 		this.pizzas = pizzas;
 	}
 	
+	public double calculateFinalPrice() {
+		double finalPrice = 0;
+		for(Pizza pizza : this.pizzas) {
+			finalPrice += pizza.calculateFinalPrice();
+		}
+		return finalPrice;
+	}
+	
 }
