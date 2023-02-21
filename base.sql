@@ -15,7 +15,7 @@ CREATE TABLE pizzas_ingredients(
     pizza int,
     ingredient int,
     PRIMARY KEY(pizza, ingredient),
-    FOREIGN KEY(pizza) REFRERENCES pizzas(id),
+    FOREIGN KEY(pizza) REFERENCES pizzas(id),
     FOREIGN KEY(ingredient) REFERENCES ingredients(id)
 );
 
@@ -46,6 +46,6 @@ INSERT INTO ingredients VALUES(10, 'tomates', 0.8);
 INSERT INTO ingredients VALUES(11, 'olives', 1.2);
 
 INSERT INTO pizzas VALUES(1, 'savoyarde', 10, 'napolitaine');
-INSERT INTO pizzas_ingredients(1, 1);
-INSERT INTO pizzas_ingredients(1, 4);
-INSERT INTO pizzas_ingredients(1, 9);
+INSERT INTO pizzas_ingredients VALUES(1, 1);
+INSERT INTO pizzas_ingredients VALUES(1, 4);
+INSERT INTO pizzas_ingredients VALUES(1, 9);
