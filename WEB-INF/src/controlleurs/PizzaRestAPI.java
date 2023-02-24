@@ -3,6 +3,8 @@ package controlleurs;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -135,25 +137,27 @@ public class PizzaRestAPI extends MyServlet {
 			}
 			 
 			JsonNode jsn = mapper.readTree(parameter);
-			if( jsn.get("id") == null) {
-				out.println("pas d'id");
-			} else {
-				out.println("un id");
+			if(jsn.get("id") != null) {
+				pizza.setId(jsn.get("id").asInt());
 			}
-			/*if(!idS) {
-				out.println(jsn.get("id").asText());
-			} else {
-				out.println("rien");
-			}*/
+			if(jsn.get("name") != null) {
+				pizza.setName(jsn.get("name").asText());
+			}
+			if(jsn.get("basicprice") != null) {
+				pizza.setBasicPrice(jsn.get("basicprice").asDouble());
+			}
+			if(jsn.get("dough") != null) {
+				pizza.setDough(jsn.get("dough").asText());
+			}
+			if(jsn.get("ingredients") != null) {
+				List<Ingredient> ingredients = new ArrayList<>();
+				for(JsonNode node : jsn.get("ingredients")) {
+					ingredients.add(mapper.treeToValue(node, Ingredient.class));
+				}
+				pizza.setIngredients(ingredients);
+			}
 			
-			/*Pizza pizzaJson = mapper.readValue(parameter, Pizza.class);
-			
-			
-			out.println(pizzaJson.getId());
-			out.println(pizzaJson.getName());
-			out.println(pizzaJson.getBasicPrice());
-			out.println(pizzaJson.getDough());
-			out.println(pizzaJson.getIngredients());*/
+			out.println(mapper.writeValueAsString(pizza));
 			
 			
 		} catch(NumberFormatException e) {
