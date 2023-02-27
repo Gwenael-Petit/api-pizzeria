@@ -31,6 +31,7 @@ public class CommandePizzaDAO {
 	}
 	
 	public void save(Commande commande) {
+		if(commande.getPizzas() == null) return;
 		try(Connection con = ds.getConnection()) {
 			PreparedStatement ps = con.prepareStatement("insert into commandes_pizzas values(?,?)");
 			for(Pizza pizza : commande.getPizzas()) {

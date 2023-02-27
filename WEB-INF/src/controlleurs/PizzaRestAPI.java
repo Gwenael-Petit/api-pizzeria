@@ -11,10 +11,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import dao.PizzaDAO;
 import dao.PizzaIngredientDAO;
@@ -141,7 +139,8 @@ public class PizzaRestAPI extends MyServlet {
 			 
 			JsonNode jsn = mapper.readTree(parameter);
 			if(jsn.get("id") != null) {
-				pizza.setId(jsn.get("id").asInt());
+				res.sendError(HttpServletResponse.SC_FORBIDDEN);
+				return;
 			}
 			if(jsn.get("name") != null) {
 				pizza.setName(jsn.get("name").asText());
@@ -160,6 +159,7 @@ public class PizzaRestAPI extends MyServlet {
 				pizza.setIngredients(ingredients);
 			}
 			
+			pizzaDAO.update(pizza);
 			out.println(mapper.writeValueAsString(pizza));
 			
 			

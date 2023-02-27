@@ -52,6 +52,7 @@ public class CommandeDAO {
 			ps.setInt(1, commande.getId());
 			ps.setInt(2, commande.getUserId());
 			ps.setDate(3, commande.getDateCommande());
+			ps.executeUpdate();
 			commandePizzaDAO.save(commande);
 		} catch(Exception e) {
 			System.out.println(e.getMessage());
