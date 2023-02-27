@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS commandes_pizzas, pizzas_ingredients, commandes, pizzas, ingredients;
+DROP TABLE IF EXISTS commandes_pizzas, pizzas_ingredients, commandes, pizzas, ingredients, users;
 
 CREATE TABLE ingredients(
     id int PRIMARY KEY,
@@ -21,10 +21,17 @@ CREATE TABLE pizzas_ingredients(
     FOREIGN KEY(ingredient) REFERENCES ingredients(id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
+CREATE TABLE users(
+    id int PRIMARY KEY,
+    login text,
+    password text
+);
+
 CREATE TABLE commandes(
     id int PRIMARY KEY,
     userId int,
-    dateCommande date
+    dateCommande date,
+    FOREIGN KEY(userId) REFERENCES users(id)
 );
 
 CREATE TABLE commandes_pizzas(
@@ -51,3 +58,6 @@ INSERT INTO pizzas VALUES(1, 'savoyarde', 10, 'napolitaine');
 INSERT INTO pizzas_ingredients VALUES(1, 1);
 INSERT INTO pizzas_ingredients VALUES(1, 4);
 INSERT INTO pizzas_ingredients VALUES(1, 9);
+
+INSERT INTO users VALUES(1, 'valentin', 'valentin');
+INSERT INTO users VALUES(2, 'gwenael', 'gwenael');
