@@ -52,10 +52,13 @@ public class PizzaRestAPI extends MyServlet {
 				res.sendError(HttpServletResponse.SC_NOT_FOUND);
 				return;
 			}
+			if(infos.length == 2) {
+				out.println(mapper.writeValueAsString(pizza));
+			}
 			if(infos.length ==3 && infos[2].equalsIgnoreCase("prixfinal")) {
 				out.println("{\"prix\": " + pizza.calculateFinalPrice() + "}");
 			}else {
-				out.println(mapper.writeValueAsString(pizza));
+				res.sendError(HttpServletResponse.SC_NOT_FOUND);
 			}
 			
 		}catch(NumberFormatException e) {
