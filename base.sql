@@ -1,3 +1,5 @@
+DROP TABLE IF EXISTS commandes_pizzas, pizzas_ingredients, commandes, pizzas, ingredients;
+
 CREATE TABLE ingredients(
     id int PRIMARY KEY,
     name text,
@@ -15,8 +17,8 @@ CREATE TABLE pizzas_ingredients(
     pizza int,
     ingredient int,
     PRIMARY KEY(pizza, ingredient),
-    FOREIGN KEY(pizza) REFERENCES pizzas(id),
-    FOREIGN KEY(ingredient) REFERENCES ingredients(id)
+    FOREIGN KEY(pizza) REFERENCES pizzas(id) ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY(ingredient) REFERENCES ingredients(id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 CREATE TABLE commandes(
@@ -29,8 +31,8 @@ CREATE TABLE commandes_pizzas(
     commandeId int,
     pizzaId int,
     PRIMARY KEY(commandeId, pizzaId),
-    FOREIGN KEY(commandeId) REFERENCES commandes(id),
-    FOREIGN KEY(pizzaId) REFERENCES pizzas(id)
+    FOREIGN KEY(commandeId) REFERENCES commandes(id) ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY(pizzaId) REFERENCES pizzas(id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 INSERT INTO ingredients VALUES(1, 'pomme de terre', 0.4);
