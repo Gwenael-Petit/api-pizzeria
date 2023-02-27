@@ -14,6 +14,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import dao.CommandeDAO;
 import dto.Commande;
+import utils.JwtManager;
 
 @WebServlet("/commandes/*")
 public class CommandeRestAPI extends HttpServlet {
@@ -66,6 +67,11 @@ public class CommandeRestAPI extends HttpServlet {
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		if(!JwtManager.verifToken(req.getHeader("Authorization"))) {
+			res.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+			return;
+		}
+		
 		StringBuilder sb = new StringBuilder();
 		try(BufferedReader reader = req.getReader()) {
 			String line;

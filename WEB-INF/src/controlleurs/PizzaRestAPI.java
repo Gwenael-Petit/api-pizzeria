@@ -18,6 +18,7 @@ import dao.PizzaDAO;
 import dao.PizzaIngredientDAO;
 import dto.Ingredient;
 import dto.Pizza;
+import utils.JwtManager;
 
 @WebServlet("/pizzas/*")
 public class PizzaRestAPI extends MyServlet {
@@ -69,6 +70,11 @@ public class PizzaRestAPI extends MyServlet {
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		if(!JwtManager.verifToken(req.getHeader("Authorization"))) {
+			res.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+			return;
+		}
+		
 		res.setContentType("application/json;charset=UTF-8");
 		PrintWriter out = res.getWriter();
 		String parameter = readParameter(req, res);
@@ -111,6 +117,11 @@ public class PizzaRestAPI extends MyServlet {
 
 	@Override
 	public void doPatch(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		if(!JwtManager.verifToken(req.getHeader("Authorization"))) {
+			res.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+			return;
+		}
+		
 		res.setContentType("application/json;charset=UTF-8");
 		PrintWriter out = res.getWriter();
 		String parameter = readParameter(req, res);
@@ -174,8 +185,12 @@ public class PizzaRestAPI extends MyServlet {
 	
 	@Override
 	protected void doDelete(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		res.setContentType("application/json;charset=req.getPathInfo()UTF-8");
+		if(!JwtManager.verifToken(req.getHeader("Authorization"))) {
+			res.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+			return;
+		}
 		
+		res.setContentType("application/json;charset=req.getPathInfo()UTF-8");
 		
 		String pathInfo = req.getPathInfo();
 		if(pathInfo == null || pathInfo.equals("/")) {

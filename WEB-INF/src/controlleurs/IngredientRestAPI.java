@@ -14,6 +14,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import dao.IngredientDAO;
 import dto.Ingredient;
+import utils.JwtManager;
 
 @WebServlet("/ingredients/*")
 public class IngredientRestAPI extends HttpServlet {
@@ -61,6 +62,11 @@ public class IngredientRestAPI extends HttpServlet {
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		if(!JwtManager.verifToken(req.getHeader("Authorization"))) {
+			res.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+			return;
+		}
+		
 		StringBuilder sb = new StringBuilder();
 		try(BufferedReader reader = req.getReader()) {
 			String line;
@@ -87,6 +93,11 @@ public class IngredientRestAPI extends HttpServlet {
 	
 	@Override
 	protected void doDelete(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		if(!JwtManager.verifToken(req.getHeader("Authorization"))) {
+			res.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+			return;
+		}
+		
 		res.setContentType("application/json;charset=UTF-8");
 		PrintWriter out = res.getWriter();
 		ObjectMapper mapper = new ObjectMapper();
