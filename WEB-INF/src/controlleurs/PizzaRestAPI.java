@@ -40,7 +40,7 @@ public class PizzaRestAPI extends MyServlet {
 		}
 		
 		String[] infos = req.getPathInfo().split("/");
-		if(infos.length < 2 || infos.length >3) {
+		if(infos.length < 2 || infos.length > 3) {
 			res.sendError(HttpServletResponse.SC_NOT_FOUND);
 			return;
 		}
@@ -55,9 +55,9 @@ public class PizzaRestAPI extends MyServlet {
 			if(infos.length == 2) {
 				out.println(mapper.writeValueAsString(pizza));
 			}
-			if(infos.length ==3 && infos[2].equalsIgnoreCase("prixfinal")) {
+			else if(infos.length == 3 && infos[2].equalsIgnoreCase("prixfinal")) {
 				out.println("{\"prix\": " + pizza.calculateFinalPrice() + "}");
-			}else {
+			} else {
 				res.sendError(HttpServletResponse.SC_NOT_FOUND);
 			}
 			

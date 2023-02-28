@@ -98,10 +98,6 @@ public class IngredientRestAPI extends HttpServlet {
 			return;
 		}
 		
-		res.setContentType("application/json;charset=UTF-8");
-		PrintWriter out = res.getWriter();
-		ObjectMapper mapper = new ObjectMapper();
-		
 		String pathInfo = req.getPathInfo();
 		if(pathInfo == null || pathInfo.equals("/")) {
 			res.sendError(HttpServletResponse.SC_NOT_FOUND);
@@ -121,14 +117,11 @@ public class IngredientRestAPI extends HttpServlet {
 				res.sendError(HttpServletResponse.SC_NOT_FOUND);
 				return;
 			}
-			out.println(mapper.writeValueAsString(ingredient));
 			ingredientDAO.delete(ingredient);
 		} catch(NumberFormatException e) {
 			res.sendError(HttpServletResponse.SC_NOT_FOUND);
 			return;
 		}
-		
-		out.close();
 	}
 
 }
