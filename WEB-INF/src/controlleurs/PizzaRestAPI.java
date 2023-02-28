@@ -18,6 +18,7 @@ import dao.PizzaDAO;
 import dao.PizzaIngredientDAO;
 import dto.Ingredient;
 import dto.Pizza;
+import dto.PizzaIngredient;
 import utils.JwtManager;
 
 @WebServlet("/pizzas/*")
@@ -106,7 +107,7 @@ public class PizzaRestAPI extends MyServlet {
 				res.sendError(HttpServletResponse.SC_CONFLICT);
 				return;
 			}
-			pizInDAO.addIngredient(foundPizza, ingredient);
+			pizInDAO.addIngredient(new PizzaIngredient(foundPizza.getId(), ingredient.getId()));
 			out.println(mapper.writeValueAsString(ingredient));
 		}catch(NumberFormatException e) {
 			res.sendError(HttpServletResponse.SC_NOT_FOUND);
@@ -225,7 +226,7 @@ public class PizzaRestAPI extends MyServlet {
 					res.sendError(HttpServletResponse.SC_NOT_FOUND);
 					return;
 				}
-				pizInDAO.removeIngredient(pizza, ingredient);
+				pizInDAO.removeIngredient(new PizzaIngredient(pizza.getId(), ingredient.getId()));
 			}else {
 				pizzaDAO.delete(pizza);
 			}
