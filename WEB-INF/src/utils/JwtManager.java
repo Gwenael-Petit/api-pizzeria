@@ -11,8 +11,6 @@ import java.util.Date;
 import java.util.UUID;
 
 import javax.crypto.spec.SecretKeySpec;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -24,6 +22,8 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
 public class JwtManager {
+	
+	private static UsersDAO usersDao = new UsersDAO();
 
     public static String createJWT(String login, String pwd) {
         // The JWT signature algorithm we will be using to sign the token
@@ -43,7 +43,7 @@ public class JwtManager {
                 .signWith(signingKey, signatureAlgorithm);
 
         // if it has been specified, let's add the expiration
-        long ttlMillis = 1000 * 60 * 5; // 4mn
+        long ttlMillis = 1000 * 60 * 30;
         if (ttlMillis > 0) {
             long expMillis = nowMillis + ttlMillis;
             Date exp = new Date(expMillis);
@@ -75,7 +75,6 @@ public class JwtManager {
 		JsonNode json = mapper.readTree(body);
 		
 		String userLogin = json.get("sub").asText();
-		UsersDAO usersDao = new UsersDAO();
 		String pwd = usersDao.findPasswordByLogin(userLogin);
 		try {
     		Claims claims = JwtManager.decodeJWT(tokenB64, pwd);

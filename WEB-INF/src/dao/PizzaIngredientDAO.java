@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dto.Ingredient;
-import dto.Pizza;
+import dto.PizzaIngredient;
 import utils.DS;
 
 public class PizzaIngredientDAO {
@@ -18,11 +18,11 @@ public class PizzaIngredientDAO {
 	public List<Ingredient> findByPizzaId(int pizzaId) {
 		List<Ingredient> res = new ArrayList<Ingredient>();
 		try(Connection con = ds.getConnection()) {
-			PreparedStatement ps = con.prepareStatement("select * from pizzas_ingredients where pizza=?");
+			PreparedStatement ps = con.prepareStatement("select * from pizzas_ingredients where pizzaId=?");
 			ps.setInt(1, pizzaId);
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
-				res.add(ingredientDAO.findById(rs.getInt("ingredient")));
+				res.add(ingredientDAO.findById(rs.getInt("ingredientId")));
 			}
 		} catch(Exception e) {
 			System.out.println(e.getMessage());
@@ -30,34 +30,34 @@ public class PizzaIngredientDAO {
 		return res;
 	}
 	
-	public void addIngredient(Pizza pizza, Ingredient ingredient) {
+	public void addIngredient(PizzaIngredient pizzaIngredient) {
 		try(Connection con = ds.getConnection()){
 			PreparedStatement ps = con.prepareStatement("insert into pizzas_ingredients values(?,?)");
-			ps.setInt(1, pizza.getId());
-			ps.setInt(2, ingredient.getId());
+			ps.setInt(1, pizzaIngredient.getPizzaId());
+			ps.setInt(2, pizzaIngredient.getIngredientId());
 			ps.executeUpdate();
 		}catch(Exception e) {
 			System.out.println(e.getMessage());
 		}
 	}
 	
-	public void removeIngredient(Pizza pizza, Ingredient ingredient) {
+	public void removeIngredient(PizzaIngredient pizzaIngredient) {
 		try(Connection con = ds.getConnection()){
-			PreparedStatement ps = con.prepareStatement("delete from pizzas_ingredients where pizza=? and ingredient=?");
-			ps.setInt(1, pizza.getId());
-			ps.setInt(2, ingredient.getId());
+			PreparedStatement ps = con.prepareStatement("delete from pizzas_ingredients where pizzaId=? and ingredientId=?");
+			ps.setInt(1, pizzaIngredient.getPizzaId());
+			ps.setInt(2, pizzaIngredient.getIngredientId());
 			ps.executeUpdate();
 		}catch(Exception e) {
 			System.out.println(e.getMessage());
 		}
 	}
 	
-	public void save(Pizza pizza) {
+	public void saveAll(List<PizzaIngredient> pizzaIngredients) {
 		try(Connection con = ds.getConnection()) {
 			PreparedStatement ps = con.prepareStatement("insert into pizzas_ingredients values (?,?)");
-			for(Ingredient ingredient : pizza.getIngredients()) {
-				ps.setInt(1, pizza.getId());
-				ps.setInt(2, ingredient.getId());
+			for(PizzaIngredient pizzaIngredient : pizzaIngredients) {
+				ps.setInt(1, pizzaIngredient.getPizzaId());
+				ps.setInt(2, pizzaIngredient.getIngredientId());
 				ps.addBatch();
 			}
 			ps.executeBatch();
@@ -66,22 +66,14 @@ public class PizzaIngredientDAO {
 		}
 	}
 	
-	public void delete(Pizza pizza) {
+	public void deleteAll(int pizzaId) {
 		try(Connection con = ds.getConnection()) {
-			PreparedStatement ps = con.prepareStatement("delete from pizzas_ingredients where pizza=?");
-			for(Ingredient ingredient : pizza.getIngredients()) {
-				ps.setInt(1, pizza.getId());
-				ps.addBatch();
-			}
-			ps.executeBatch();
+			PreparedStatement ps = con.prepareStatement("delete from pizzas_ingredients where pizzaId=?");
+			ps.setInt(1, pizzaId);
+			ps.executeUpdate();
 		} catch(Exception e) {
 			System.out.println(e.getMessage());
 		}
-	}
-	
-	public void update(Pizza pizza) {
-		delete(pizza);
-		save(pizza);
 	}
 
 }

@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dto.Commande;
+import dto.CommandePizza;
 import dto.Pizza;
 import utils.DS;
 
@@ -53,7 +54,13 @@ public class CommandeDAO {
 			ps.setInt(2, commande.getUserId());
 			ps.setDate(3, commande.getDateCommande());
 			ps.executeUpdate();
-			commandePizzaDAO.save(commande);
+			if(commande.getPizzas() != null) {
+				List<CommandePizza> commandePizzas = new ArrayList<>();
+				for(Pizza pizza : commande.getPizzas()) {
+					commandePizzas.add(new CommandePizza(commande.getId(), pizza.getId()));
+				}
+				commandePizzaDAO.saveAll(commandePizzas);
+			}
 		} catch(Exception e) {
 			System.out.println(e.getMessage());
 		}

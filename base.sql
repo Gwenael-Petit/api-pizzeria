@@ -14,11 +14,11 @@ CREATE TABLE pizzas(
 );
 
 CREATE TABLE pizzas_ingredients(
-    pizza int,
-    ingredient int,
-    PRIMARY KEY(pizza, ingredient),
-    FOREIGN KEY(pizza) REFERENCES pizzas(id) ON UPDATE CASCADE ON DELETE CASCADE,
-    FOREIGN KEY(ingredient) REFERENCES ingredients(id) ON UPDATE CASCADE ON DELETE CASCADE
+    pizzaId int,
+    ingredientId int,
+    PRIMARY KEY(pizzaId, ingredientId),
+    FOREIGN KEY(pizzaId) REFERENCES pizzas(id),
+    FOREIGN KEY(ingredientId) REFERENCES ingredients(id)
 );
 
 CREATE TABLE users(
@@ -38,8 +38,8 @@ CREATE TABLE commandes_pizzas(
     commandeId int,
     pizzaId int,
     PRIMARY KEY(commandeId, pizzaId),
-    FOREIGN KEY(commandeId) REFERENCES commandes(id) ON UPDATE CASCADE ON DELETE CASCADE,
-    FOREIGN KEY(pizzaId) REFERENCES pizzas(id) ON UPDATE CASCADE ON DELETE CASCADE
+    FOREIGN KEY(commandeId) REFERENCES commandes(id),
+    FOREIGN KEY(pizzaId) REFERENCES pizzas(id)
 );
 
 INSERT INTO ingredients VALUES(1, 'pomme de terre', 0.4);
@@ -59,5 +59,5 @@ INSERT INTO pizzas_ingredients VALUES(1, 1);
 INSERT INTO pizzas_ingredients VALUES(1, 4);
 INSERT INTO pizzas_ingredients VALUES(1, 9);
 
-INSERT INTO users VALUES(1, 'valentin', 'valentin');
-INSERT INTO users VALUES(2, 'gwenael', 'gwenael');
+INSERT INTO users VALUES(1, 'valentin', 'valentinvalentinvalentinvalentinvalentinvalentin');
+INSERT INTO users VALUES(2, 'gwenael', 'gwenaelgwenaelgwenaelgwenaelgwenaelgwenaelgwenaelgwenael');

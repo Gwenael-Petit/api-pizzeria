@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import dto.Commande;
+import dto.CommandePizza;
 import dto.Pizza;
 import utils.DS;
 
@@ -30,13 +30,12 @@ public class CommandePizzaDAO {
 		return res;
 	}
 	
-	public void save(Commande commande) {
-		if(commande.getPizzas() == null) return;
+	public void saveAll(List<CommandePizza> commandePizzas) {
 		try(Connection con = ds.getConnection()) {
 			PreparedStatement ps = con.prepareStatement("insert into commandes_pizzas values(?,?)");
-			for(Pizza pizza : commande.getPizzas()) {
-				ps.setInt(1, commande.getId());
-				ps.setInt(2, pizza.getId());
+			for(CommandePizza commandePizza : commandePizzas) {
+				ps.setInt(1, commandePizza.getCommandeId());
+				ps.setInt(2, commandePizza.getPizzaId());
 				ps.addBatch();
 			}
 			ps.executeBatch();

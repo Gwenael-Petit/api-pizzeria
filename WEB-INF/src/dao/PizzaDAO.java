@@ -8,6 +8,7 @@ import java.util.List;
 
 import dto.Ingredient;
 import dto.Pizza;
+import dto.PizzaIngredient;
 import utils.DS;
 
 public class PizzaDAO {
@@ -54,7 +55,11 @@ public class PizzaDAO {
 			ps.setDouble(3, pizza.getBasicPrice());
 			ps.setString(4, pizza.getDough());
 			ps.executeUpdate();
-			pizzaIngredientDAO.save(pizza);
+			List<PizzaIngredient> pizzasIngredients = new ArrayList<>();
+			for(Ingredient ingredient : pizza.getIngredients()) {
+				pizzasIngredients.add(new PizzaIngredient(pizza.getId(), ingredient.getId()));
+			}
+			pizzaIngredientDAO.saveAll(pizzasIngredients);
 		} catch(Exception e) {
 			System.out.println(e.getMessage());
 		}
@@ -62,7 +67,7 @@ public class PizzaDAO {
 	
 	public void delete(Pizza pizza) {
 		try(Connection con = ds.getConnection()) {
-			pizzaIngredientDAO.delete(pizza);
+			pizzaIngredientDAO.deleteAll(pizza.getId());
 			PreparedStatement ps = con.prepareStatement("delete from pizzas where id=?");
 			ps.setInt(1, pizza.getId());
 			ps.executeUpdate();
@@ -79,7 +84,12 @@ public class PizzaDAO {
 			ps.setString(3, pizza.getDough());
 			ps.setInt(4, pizza.getId());
 			ps.executeUpdate();
-			pizzaIngredientDAO.update(pizza);
+			List<PizzaIngredient> pizzasIngredients = new ArrayList<>();
+			for(Ingredient ingredient : pizza.getIngredients()) {
+				pizzasIngredients.add(new PizzaIngredient(pizza.getId(), ingredient.getId()));
+			}
+			pizzaIngredientDAO.deleteAll(pizza.getId());
+			pizzaIngredientDAO.saveAll(pizzasIngredients);
 		} catch(Exception e) {
 			System.out.println(e.getMessage());
 		}
