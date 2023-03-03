@@ -1,0 +1,367 @@
+{
+  "log": {
+    "version": "1.2",
+    "creator": "RESTED REST Client",
+    "Comment": "An exported collection from RESTED",
+    "entries": [
+      {
+        "request": {
+          "method": "GET",
+          "url": "http://localhost:8080/sae401/ingredients",
+          "headers": [
+            {
+              "name": "",
+              "value": ""
+            }
+          ],
+          "postData": {
+            "mimeType": "",
+            "params": []
+          }
+        }
+      },
+      {
+        "request": {
+          "method": "GET",
+          "url": "http://localhost:8080/sae401/ingredients/1",
+          "headers": [
+            {
+              "name": "",
+              "value": ""
+            }
+          ],
+          "postData": {
+            "mimeType": "",
+            "params": []
+          }
+        }
+      },
+      {
+        "request": {
+          "method": "GET",
+          "url": "http://localhost:8080/sae401/ingredients/1/name",
+          "headers": [
+            {
+              "name": "",
+              "value": ""
+            }
+          ],
+          "postData": {
+            "mimeType": "",
+            "params": []
+          }
+        }
+      },
+      {
+        "request": {
+          "method": "POST",
+          "url": "http://localhost:8080/sae401/ingredients/",
+          "headers": [
+            {
+              "name": "Authorization",
+              "value": "Bearer "
+            }
+          ],
+          "postData": {
+            "mimeType": "application/x-www-form-urlencoded",
+            "params": [
+              {
+                "name": "id",
+                "value": "12"
+              },
+              {
+                "name": "name",
+                "value": "jambon"
+              },
+              {
+                "name": "price",
+                "value": "1.2"
+              }
+            ],
+            "text": "id=12&name=jambon&price=1.2"
+          }
+        }
+      },
+      {
+        "request": {
+          "method": "DELETE",
+          "url": "http://localhost:8080/sae401/ingredients/12",
+          "headers": [
+            {
+              "name": "Authorization",
+              "value": "Bearer "
+            }
+          ],
+          "postData": {
+            "mimeType": "",
+            "params": []
+          }
+        }
+      },
+      {
+        "request": {
+          "method": "GET",
+          "url": "http://localhost:8080/sae401/pizzas",
+          "headers": [
+            {
+              "name": "",
+              "value": ""
+            }
+          ],
+          "postData": {
+            "mimeType": "",
+            "params": []
+          }
+        }
+      },
+      {
+        "request": {
+          "method": "GET",
+          "url": "http://localhost:8080/sae401/pizzas/1",
+          "headers": [
+            {
+              "name": "",
+              "value": ""
+            }
+          ],
+          "postData": {
+            "mimeType": "",
+            "params": []
+          }
+        }
+      },
+      {
+        "request": {
+          "method": "POST",
+          "url": "http://localhost:8080/sae401/pizzas",
+          "headers": [
+            {
+              "name": "Authorization",
+              "value": "Bearer "
+            }
+          ],
+          "postData": {
+            "mimeType": "application/x-www-form-urlencoded",
+            "params": [
+              {
+                "name": "id",
+                "value": "2"
+              },
+              {
+                "name": "name",
+                "value": "reine"
+              },
+              {
+                "name": "dough",
+                "value": "napolitaine"
+              },
+              {
+                "name": "basicPrice",
+                "value": "6"
+              }
+            ],
+            "text": "id=2&name=reine&dough=napolitaine&basicPrice=6"
+          }
+        }
+      },
+      {
+        "request": {
+          "method": "DELETE",
+          "url": "http://localhost:8080/sae401/pizzas/2",
+          "headers": [
+            {
+              "name": "Authorization",
+              "value": "Bearer "
+            }
+          ],
+          "postData": {
+            "mimeType": "",
+            "params": []
+          }
+        }
+      },
+      {
+        "request": {
+          "method": "GET",
+          "url": "http://localhost:8080/sae401/pizzas/2/prixfinal",
+          "headers": [
+            {
+              "name": "",
+              "value": ""
+            }
+          ],
+          "postData": {
+            "mimeType": "",
+            "params": []
+          }
+        }
+      },
+      {
+        "request": {
+          "method": "PATCH",
+          "url": "http://localhost:8080/sae401/pizzas/2",
+          "headers": [
+            {
+              "name": "Authorization",
+              "value": "Bearer "
+            }
+          ],
+          "postData": {
+            "mimeType": "application/x-www-form-urlencoded",
+            "params": [
+              {
+                "name": "basicprice",
+                "value": "8"
+              }
+            ],
+            "text": "basicprice=8"
+          }
+        }
+      },
+      {
+        "request": {
+          "method": "POST",
+          "url": "http://localhost:8080/sae401/pizzas/2",
+          "headers": [
+            {
+              "name": "Authorization",
+              "value": "Bearer "
+            }
+          ],
+          "postData": {
+            "mimeType": "application/x-www-form-urlencoded",
+            "params": [
+              {
+                "name": "id",
+                "value": "12"
+              },
+              {
+                "name": "name",
+                "value": "jambon"
+              },
+              {
+                "name": "price",
+                "value": "1.2"
+              }
+            ],
+            "text": "id=12&name=jambon&price=1.2"
+          }
+        }
+      },
+      {
+        "request": {
+          "method": "DELETE",
+          "url": "http://localhost:8080/sae401/pizzas/2/12",
+          "headers": [
+            {
+              "name": "Authorization",
+              "value": "Bearer "
+            }
+          ],
+          "postData": {
+            "mimeType": "",
+            "params": []
+          }
+        }
+      },
+      {
+        "request": {
+          "method": "GET",
+          "url": "http://localhost:8080/sae401/commandes",
+          "headers": [
+            {
+              "name": "",
+              "value": ""
+            }
+          ],
+          "postData": {
+            "mimeType": "",
+            "params": []
+          }
+        }
+      },
+      {
+        "request": {
+          "method": "GET",
+          "url": "http://localhost:8080/sae401/commandes/1",
+          "headers": [
+            {
+              "name": "",
+              "value": ""
+            }
+          ],
+          "postData": {
+            "mimeType": "",
+            "params": []
+          }
+        }
+      },
+      {
+        "request": {
+          "method": "POST",
+          "url": "http://localhost:8080/sae401/commandes",
+          "headers": [
+            {
+              "name": "Authorization",
+              "value": "Bearer "
+            }
+          ],
+          "postData": {
+            "mimeType": "application/x-www-form-urlencoded",
+            "params": [
+              {
+                "name": "id",
+                "value": "1"
+              },
+              {
+                "name": "userId",
+                "value": "1"
+              },
+              {
+                "name": "dateCommande",
+                "value": "2023-02-27"
+              },
+              {
+                "value": "[   {     \"id\": 1,     \"name\": \"savoyarde\",     \"basicPrice\": 10,     \"dough\": \"napolitaine\",     \"ingredients\": [       {         \"id\": 1,         \"name\": \"pomme de terre\",         \"price\": 0.4       },       {         \"id\": 4,         \"name\": \"lardons\",         \"price\": 1       },       {         \"id\": 9,         \"name\": \"fromage\",         \"price\": 2       }     ]   },   {     \"id\": 2,     \"name\": \"reine\",     \"basicPrice\": 6,     \"dough\": \"napolitaine\",     \"ingredients\": [       {         \"id\": 12,         \"name\": \"jambon\",         \"price\": 1.2       }     ]   } ]",
+                "name": "pizzas"
+              }
+            ],
+            "text": "id=1&userId=1&dateCommande=2023-02-27&pizzas=[   {     \"id\": 1,     \"name\": \"savoyarde\",     \"basicPrice\": 10,     \"dough\": \"napolitaine\",     \"ingredients\": [       {         \"id\": 1,         \"name\": \"pomme de terre\",         \"price\": 0.4       },       {         \"id\": 4,         \"name\": \"lardons\",         \"price\": 1       },       {         \"id\": 9,         \"name\": \"fromage\",         \"price\": 2       }     ]   },   {     \"id\": 2,     \"name\": \"reine\",     \"basicPrice\": 6,     \"dough\": \"napolitaine\",     \"ingredients\": [       {         \"id\": 12,         \"name\": \"jambon\",         \"price\": 1.2       }     ]   } ]"
+          }
+        }
+      },
+      {
+        "request": {
+          "method": "GET",
+          "url": "http://localhost:8080/sae401/commandes/1/prixfinal",
+          "headers": [
+            {
+              "name": "",
+              "value": ""
+            }
+          ],
+          "postData": {
+            "mimeType": "",
+            "params": []
+          }
+        }
+      },
+      {
+        "request": {
+          "method": "GET",
+          "url": "http://localhost:8080/sae401/users/token?login=valentin&pwd=valentinvalentinvalentinvalentinvalentinvalentin",
+          "headers": [
+            {
+              "name": "",
+              "value": ""
+            }
+          ],
+          "postData": {
+            "mimeType": "",
+            "params": []
+          }
+        }
+      }
+    ]
+  }
+}

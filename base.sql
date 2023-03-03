@@ -38,7 +38,7 @@ CREATE TABLE commandes_pizzas(
     commandeId int,
     pizzaId int,
     PRIMARY KEY(commandeId, pizzaId),
-    FOREIGN KEY(commandeId) REFERENCES commandes(id) ON DELETE CASCADE,
+    FOREIGN KEY(commandeId) REFERENCES commandes(id),
     FOREIGN KEY(pizzaId) REFERENCES pizzas(id) ON DELETE CASCADE
 );
 
