@@ -63,7 +63,7 @@
             }
           ],
           "postData": {
-            "mimeType": "application/x-www-form-urlencoded",
+            "mimeType": "application/json",
             "params": [
               {
                 "name": "id",
@@ -141,7 +141,7 @@
             }
           ],
           "postData": {
-            "mimeType": "application/x-www-form-urlencoded",
+            "mimeType": "application/json",
             "params": [
               {
                 "name": "id",
@@ -207,7 +207,7 @@
             }
           ],
           "postData": {
-            "mimeType": "application/x-www-form-urlencoded",
+            "mimeType": "application/json",
             "params": [
               {
                 "name": "basicprice",
@@ -229,7 +229,7 @@
             }
           ],
           "postData": {
-            "mimeType": "application/x-www-form-urlencoded",
+            "mimeType": "application/json",
             "params": [
               {
                 "name": "id",
@@ -307,7 +307,7 @@
             }
           ],
           "postData": {
-            "mimeType": "application/x-www-form-urlencoded",
+            "mimeType": "application/json",
             "params": [
               {
                 "name": "id",
