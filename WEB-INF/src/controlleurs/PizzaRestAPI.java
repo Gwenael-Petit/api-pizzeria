@@ -107,7 +107,7 @@ public class PizzaRestAPI extends MyServlet {
 				res.sendError(HttpServletResponse.SC_CONFLICT);
 				return;
 			}
-			pizInDAO.addIngredient(new PizzaIngredient(foundPizza.getId(), ingredient.getId()));
+			pizInDAO.save(new PizzaIngredient(foundPizza.getId(), ingredient.getId()));
 			out.println(mapper.writeValueAsString(ingredient));
 		}catch(NumberFormatException e) {
 			res.sendError(HttpServletResponse.SC_NOT_FOUND);
@@ -226,7 +226,7 @@ public class PizzaRestAPI extends MyServlet {
 					res.sendError(HttpServletResponse.SC_NOT_FOUND);
 					return;
 				}
-				pizInDAO.removeIngredient(new PizzaIngredient(pizza.getId(), ingredient.getId()));
+				pizInDAO.delete(new PizzaIngredient(pizza.getId(), ingredient.getId()));
 			}else {
 				pizzaDAO.delete(pizza);
 			}

@@ -30,7 +30,7 @@ public class PizzaIngredientDAO {
 		return res;
 	}
 	
-	public void addIngredient(PizzaIngredient pizzaIngredient) {
+	public void save(PizzaIngredient pizzaIngredient) {
 		try(Connection con = ds.getConnection()){
 			PreparedStatement ps = con.prepareStatement("insert into pizzas_ingredients values(?,?)");
 			ps.setInt(1, pizzaIngredient.getPizzaId());
@@ -41,7 +41,7 @@ public class PizzaIngredientDAO {
 		}
 	}
 	
-	public void removeIngredient(PizzaIngredient pizzaIngredient) {
+	public void delete(PizzaIngredient pizzaIngredient) {
 		try(Connection con = ds.getConnection()){
 			PreparedStatement ps = con.prepareStatement("delete from pizzas_ingredients where pizzaId=? and ingredientId=?");
 			ps.setInt(1, pizzaIngredient.getPizzaId());

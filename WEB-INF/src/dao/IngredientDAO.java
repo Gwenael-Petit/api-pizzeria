@@ -54,6 +54,16 @@ public class IngredientDAO {
 		}
 	}
 	
+	public void delete(Ingredient ingredient) {
+		try(Connection con = ds.getConnection()) {
+			PreparedStatement ps = con.prepareStatement("delete from ingredients where id=?");
+			ps.setInt(1, ingredient.getId());
+			ps.executeUpdate();
+		} catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
+	}
+	
 	public boolean exist(Ingredient ingredient) {
 		boolean res = false;
 		try(Connection con = ds.getConnection()) {
@@ -65,16 +75,6 @@ public class IngredientDAO {
 			System.out.println(e.getMessage());
 		}
 		return res;
-	}
-	
-	public void delete(Ingredient ingredient) {
-		try(Connection con = ds.getConnection()) {
-			PreparedStatement ps = con.prepareStatement("delete from ingredients where id=?");
-			ps.setInt(1, ingredient.getId());
-			ps.executeUpdate();
-		} catch(Exception e) {
-			System.out.println(e.getMessage());
-		}
 	}
 
 }
