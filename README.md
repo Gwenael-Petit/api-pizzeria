@@ -63,9 +63,9 @@ Les classes plus détaillées sont disponibles dans le dossier `classUML` du rep
 
 ## Endpoints
 
-Le fichier `RESTED_SAE.txt` sur le repo Git permet d'importer une collection sur RESTED avec toutes les requêtes sur les différents endpoints.
+Le fichier `RESTED_SAE.txt` sur le repo Git permet d'importer une collection sur `RESTED` avec toutes les requêtes sur les différents endpoints.
 
-Pour toutes les requêtes autre que GET, il faut générer un token sur le endpoint `/users/token` (présent dans la collection RESTED) et l'ajouter dans le champ Authorization du header de la requête.
+Pour toutes les requêtes autre que GET, il faut générer un token sur le endpoint `/users/token` (présent dans la collection RESTED) et l'ajouter dans le champ `Authorization` du header de la requête.
 
 ### Ingredients
 
@@ -77,7 +77,7 @@ Pour toutes les requêtes autre que GET, il faut générer un token sur le endpo
 | POST | /ingredients | Authorization : Bearer "token" | Ingredient JSON | - Ajouter un nouvel ingrédient <br> - 409 si l'ingrédient existe déjà |
 | DELETE | /ingredients/{id} | Authorization : Bearer "token" | | - Supprimer un ingrédient <br> - 404 si l'ingrédient n'existe pas |
 
-#### DTO JSON
+#### Exemple Ingredient DTO JSON
 
 ```json
 {
@@ -100,7 +100,7 @@ Pour toutes les requêtes autre que GET, il faut générer un token sur le endpo
 | DELETE | /pizzas/{id}/{idIngredient} | Authorization : Bearer "token" | | - Suppression d'un ingrédient d'une pizza <br> - 404 si l'ingrédient n'est pas sur la pizza |
 | GET | /pizzas/{id}/prixfinal | | | - Obtenir le prix final de la pizza <br> - 404 si la pizza n'existe pas |
 
-#### DTO JSON
+#### Exemple Pizza DTO JSON
 
 ```json
 {
@@ -137,7 +137,7 @@ Pour toutes les requêtes autre que GET, il faut générer un token sur le endpo
 | POST | /commandes | Authorization : Bearer "token" | Commande JSON | - Enregistrement d’une nouvelle commande <br> - 409 si la commande existe déjà |
 | GET  | /commandes/{id}/prixfinal | | | - Récupérer le prix final d'une commande <br> - 404 si la commande n'existe pas |
 
-#### DTO JSON
+#### Exemple Commande DTO JSON
 
 ```json
 {
