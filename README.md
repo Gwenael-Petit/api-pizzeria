@@ -175,4 +175,4 @@ Pour toutes les requêtes autre que GET, il faut générer un token sur le endpo
 
 | HTTP | URI | En-tête | Corps requête | Réponse |
 | ---  | --- | ---     | ---     | ---     |
-| GET  | /users/token | | Paramètres : <br> - login <br> - pwd | - Un token JWT d'une durée de 30 minutes <br> - 404 si tout les paramètres ne sont pas là <br> - 401 si aucun compte n'est relié aux identifiants 
+| GET  | /users/token | | Paramètres : <br> - login <br> - pwd | - Un token JWT d'une durée de 30 minutes <br> - 404 s'il manque un paramètre' <br> - 401 si aucun compte n'est relié aux identifiants 
